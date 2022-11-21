@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import GlobalStyle from './GlobalStyle';
+import AddMovimentPage from './AddMovimentPage';
+import SignInPage from './SignInPage';
+import SignUpPage from './SignUpPage';
+import WalletPage from './WalletPage';
+import { useState } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+export default function App() {
+    const [username, setUsername] = useState('');
+    const [token, setToken] = useState('');
+
+    return (
+        <>
+            <GlobalStyle/>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<SignInPage setUsername={setUsername} setToken={setToken}/>}/>
+                    <Route path="/sign-up" element={<SignUpPage/>}/>
+                    <Route path="/wallet" element={<WalletPage username={username} token={token}/>}/>
+                    <Route path="/add-moviment/:type" element={<AddMovimentPage token={token}/>}/>
+                </Routes>
+            </BrowserRouter>
+        </>
   );
 }
-
-export default App;
